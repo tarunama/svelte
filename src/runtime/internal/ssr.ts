@@ -11,9 +11,10 @@ export function spread(args, attrs_to_add) {
 	if (attrs_to_add) {
 		const classes_to_add = attrs_to_add.classes;
 		const styles_to_add = attrs_to_add.styles;
+		const is_not_null_attributes_class = attributes.class === null;
 
 		if (classes_to_add) {
-			if (attributes.class == null) {
+			if (is_not_null_attributes_class) {
 				attributes.class = classes_to_add;
 			} else {
 				attributes.class += ' ' + classes_to_add;
@@ -21,7 +22,7 @@ export function spread(args, attrs_to_add) {
 		}
 
 		if (styles_to_add) {
-			if (attributes.style == null) {
+			if (is_not_null_attributes_class) {
 				attributes.style = style_object_to_string(styles_to_add);
 			} else {
 				attributes.style = style_object_to_string(merge_ssr_styles(attributes.style, styles_to_add));
@@ -38,7 +39,7 @@ export function spread(args, attrs_to_add) {
 		if (value === true) str += ' ' + name;
 		else if (boolean_attributes.has(name.toLowerCase())) {
 			if (value) str += ' ' + name;
-		} else if (value != null) {
+		} else if (value !== null) {
 			str += ` ${name}="${value}"`;
 		}
 	});
@@ -176,7 +177,7 @@ export function create_ssr_component(fn) {
 }
 
 export function add_attribute(name, value, boolean) {
-	if (value == null || (boolean && !value)) return '';
+	if (value === null || (boolean && !value)) return '';
 	const assignment = (boolean && value === true) ? '' : `="${escape_attribute_value(value.toString())}"`;
 	return ` ${name}${assignment}`;
 }
