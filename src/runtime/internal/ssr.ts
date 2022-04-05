@@ -19,7 +19,7 @@ export function spread(args, attrs_to_add) {
 				attributes.class += ' ' + classes_to_add;
 			}
 		}
-		
+
 		if (styles_to_add) {
 			if (attributes.style == null) {
 				attributes.style = style_object_to_string(styles_to_add);
@@ -55,7 +55,7 @@ export function merge_ssr_styles(style_attribute, style_directive) {
 		if (!name) continue;
 		style_object[name] = value;
 	}
-	
+
 	for (const name in style_directive) {
 		const value = style_directive[name];
 		if (value) {
